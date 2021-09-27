@@ -1,36 +1,17 @@
 <template>
   <el-menu
     class="categories"
-    :default-active="this.$route.path"
+    default-active="0"
     @select="handleSelect"
     active-text-color="red">
     <el-menu-item index="0">
       <i class="el-icon-menu"></i>
       <span slot="title">全部</span>
     </el-menu-item>
-    <el-menu-item index="1">
+    <el-menu-item v-for="item in category_arr"
+                  :key="item.id" :index="item.id.toString()">
       <i class="el-icon-menu"></i>
-      <span slot="title">文学</span>
-    </el-menu-item>
-    <el-menu-item index="2">
-      <i class="el-icon-menu"></i>
-      <span slot="title">流行</span>
-    </el-menu-item>
-    <el-menu-item index="3">
-      <i class="el-icon-menu"></i>
-      <span slot="title">文化</span>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <i class="el-icon-menu"></i>
-      <span slot="title">生活</span>
-    </el-menu-item>
-    <el-menu-item index="5">
-      <i class="el-icon-menu"></i>
-      <span slot="title">经管</span>
-    </el-menu-item>
-    <el-menu-item index="6">
-      <i class="el-icon-menu"></i>
-      <span slot="title">科技</span>
+      <span slot="title">{{item.name}}</span>
     </el-menu-item>
   </el-menu>
 </template>
@@ -40,7 +21,7 @@ export default {
   name: 'SideMenu',
   data () {
     return {
-      cid: ''
+      category_arr: []
     }
   },
   methods: {

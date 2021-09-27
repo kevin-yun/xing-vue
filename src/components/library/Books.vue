@@ -2,7 +2,6 @@
   <div>
     <el-row style="height: 840px;">
       <search-bar @onSearch="searchResult" ref="searchBar"></search-bar>
-      <!--                  v-for="item in books.slice((currentPage-1)*pagesize, currentPage*pagesize)"-->
       <el-tooltip effect="dark" placement="right"
                   v-for="item in books.slice((currentPage-1)*pagesize, currentPage*pagesize)"
                   :key="item.id">
@@ -50,6 +49,7 @@ export default {
   data () {
     return {
       books: [],
+      category_arr: [],
       currentPage: 1,
       pagesize: 12
     }
@@ -112,7 +112,8 @@ export default {
         publicationDate: item.publicationDate,
         press: item.press,
         abs: item.abs,
-        categoryId: item.categoryId
+        categoryId: item.categoryId,
+        categoryArr: this.category_arr
       }
     }
   }
