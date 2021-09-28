@@ -27,15 +27,12 @@ export default {
         if (resp && resp.status === 200) {
           const obj = JSON.parse(JSON.stringify(resp.data))
           _this.$refs.sideMenu.category_arr = obj.data
-          _this.$refs.booksArea.category_arr = obj.data
+          _this.$refs.booksArea.$refs.edit.categoryArr = obj.data
         }
       })
     },
     listByCategory () {
       var _this = this
-      console.log(' cid === ' + this.$refs.sideMenu.cid)
-      console.log('===ref==')
-      console.log(this.$refs)
       this.$axios.post('/book/findListByCategoryId', {
         categoryId: this.$refs.sideMenu.cid
       }).then(resp => {

@@ -21,6 +21,7 @@ export default {
   name: 'SideMenu',
   data () {
     return {
+      cid: '',
       category_arr: []
     }
   },

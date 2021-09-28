@@ -49,7 +49,6 @@ export default {
   data () {
     return {
       books: [],
-      category_arr: [],
       currentPage: 1,
       pagesize: 12
     }
@@ -112,8 +111,7 @@ export default {
         publicationDate: item.publicationDate,
         press: item.press,
         abs: item.abs,
-        categoryId: item.categoryId,
-        categoryArr: this.category_arr
+        categoryId: item.categoryId
       }
     }
   }

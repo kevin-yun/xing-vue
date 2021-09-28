@@ -1,10 +1,7 @@
 <template>
   <div>
     <i class="el-icon-circle-plus-outline" @click="dialogFormVisible = true"></i>
-    <el-dialog
-      title="添加/修改图书"
-      :visible.sync="dialogFormVisible"
-      @close="clear">
+    <el-dialog title="添加/修改图书" :visible.sync="dialogFormVisible" @close="clear">
       <el-form v-model="form" style="text-align: left" ref="dataForm">
         <el-form-item label="书名" :label-width="formLabelWidth" prop="title">
           <el-input v-model="form.title" autocomplete="off" placeholder="不加《》"></el-input>
@@ -13,23 +10,27 @@
           <el-input v-model="form.author" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="出版日期" :label-width="formLabelWidth" prop="publicationDate">
-          <el-input v-model="form.publicationDate" autocomplete="off"></el-input>
+<!--          <el-input v-model="form.publicationDate" autocomplete="off"></el-input>-->
+<!--          <el-date-picker v-model="" type="date" value-format="yyyy-MM-dd" placeholder="选择日期"></el-date-picker>-->
+          <el-date-picker v-model="form.publicationDate" type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="出版社" :label-width="formLabelWidth" prop="press">
           <el-input v-model="form.press" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="封面" :label-width="formLabelWidth" prop="coverUrl">
+        <el-form-item label="封面" :label-width="formLabelWidth" prop="cover">
           <el-input v-model="form.coverUrl" autocomplete="off" placeholder="图片 URL"></el-input>
+          <img-upload @onUpload="uploadImg" ref="imgUpload"></img-upload>
         </el-form-item>
         <el-form-item label="简介" :label-width="formLabelWidth" prop="abs">
           <el-input type="textarea" v-model="form.abs" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="分类" :label-width="formLabelWidth" prop="categoryId">
           <el-select v-model="form.categoryId" placeholder="请选择分类">
-            <el-option v-for="item of form.categoryArr" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            <el-option v-for="item of categoryArr" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item prop="id" style="height: 0">
+        <el-form-item prop="id" style="height: 50px">
           <el-input type="hidden" v-model="form.id" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -42,8 +43,11 @@
 </template>
 
 <script>
+import ImgUpload from './ImgUpload'
+
 export default {
   name: 'EditForm',
+  components: {ImgUpload},
   data () {
     return {
       dialogFormVisible: false,
@@ -51,23 +55,26 @@ export default {
         id: '',
         title: '',
         author: '',
-        publicationDate: '',
+        publicationDate: null,
         press: '',
         coverUrl: '',
         abs: '',
-        categoryId: '',
-        categoryArr: []
+        categoryId: ''
       },
+      categoryArr: [],
       formLabelWidth: '120px'
     }
   },
   methods: {
+    uploadImg () {
+      this.form.coverUrl = this.$refs.imgUpload.url
+    },
     clear () {
       this.form = {
         id: '',
         title: '',
         author: '',
-        publicationDate: '',
+        publicationDate: null,
         press: '',
         coverUrl: '',
         abs: '',
